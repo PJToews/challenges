@@ -16,27 +16,27 @@ class Image
 
   def blur!(distance=1)
     distance.times do
-    blur_maps!
+      blur_pixels!
     end
   end
 
 
   private
 
-    def blur_maps!
-      blur_maps = []
+    def blur_pixels!
+      blur_pixels = []
       @image.each_with_index do |row, row_index|
         row.each_with_index do |x, col_index|
-          blur_maps << [row_index, col_index] if x == 1
+          blur_pixels << [row_index, col_index] if x == 1
         end
       end
 
 
-      blur_maps.each do |map|
-        @image[map[0]][map[1]+1] = 1 if map[1] + 1 <= @image[map[0]].length - 1
-        @image[map[0]][map[1]-1] = 1 if map[1] - 1 >= 0
-        @image[map[0] + 1][map[1]] = 1 if map[0] + 1 <= @image.length - 1
-        @image[map[0] - 1][map[1]] = 1 if map[0] - 1 >= 0
+      blur_pixels.each do |pixel|
+        @image[pixel[0]][pixel[1]+1] = 1 if pixel[1] + 1 <= @image[pixel[0]].length - 1
+        @image[pixel[0]][pixel[1]-1] = 1 if pixel[1] - 1 >= 0
+        @image[pixel[0] + 1][pixel[1]] = 1 if pixel[0] + 1 <= @image.length - 1
+        @image[pixel[0] - 1][pixel[1]] = 1 if pixel[0] - 1 >= 0
       end
     end
 end
@@ -45,8 +45,8 @@ image = Image.new([
   [0, 0, 0, 0],
   [0, 0, 0, 0],
   [0, 0, 0, 0],
-  [0, 1, 0, 0],
   [0, 0, 0, 0],
+  [1, 0, 0, 0],
   [0, 0, 0, 0]
 ])
   
